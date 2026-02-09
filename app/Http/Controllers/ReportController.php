@@ -57,7 +57,18 @@ class ReportController extends Controller
         }
 
         if (!empty($filters['Status'])) {
-            $query->where('myg_08_trip_claim.Status', $filters['Status']);
+
+            if ($filters['Status'] === 'Pending') {
+                $query->where('myg_08_trip_claim.Status', 'Pending')
+                    ->whereNotExists(function ($sub) {
+                        $sub->select(DB::raw(1))
+                            ->from('myg_09_trip_claim_details as tcd')
+                            ->whereColumn('tcd.TripClaimID', 'myg_08_trip_claim.TripClaimID')
+                            ->where('tcd.Status', '<>', 'Approved');
+                    });
+            } else {
+                $query->where('myg_08_trip_claim.Status', $filters['Status']);
+            }
         }
 
         if (!empty($filters['TripType'])) {

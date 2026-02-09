@@ -23,6 +23,7 @@ class Tripclaim extends Model
         'CMDApproverID',
         'TripPurpose',
         'VisitBranchID',
+        'VisitListBranchID',
         'ApprovalDate',
         'AdvanceAmount',
         'ApprovalDate',

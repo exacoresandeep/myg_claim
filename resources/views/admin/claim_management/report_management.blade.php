@@ -29,9 +29,9 @@
                 ['FromDate', 'From', 'date'],
                 ['ToDate', 'To', 'date'],
                 ['Status', 'Status', 'select', ['Pending', 'Approved', 'Rejected', 'Paid']],
-                ['TripType', 'Type of trip', 'select', $tripTypes->pluck('TripTypeName', 'TripTypeID')->toArray()],
+                ['TripType', 'Type of trip', 'select2', $tripTypes->pluck('TripTypeName', 'TripTypeID')->toArray()],
                 ['EmpID', 'Employee Code', 'text'],
-                ['GradeID', 'Grade', 'select', $grades->pluck('GradeName', 'GradeID')->toArray()],
+                ['GradeID', 'Grade', 'select2', $grades->pluck('GradeName', 'GradeID')->toArray()],
                 ['BranchID', 'Branch Visited', 'text'],
               ];
             @endphp
@@ -43,7 +43,15 @@
                   <select class="form-control" id="{{ $field[0] }}" name="{{ $field[0] }}">
                     <option value="">Select</option>
                     @foreach($field[3] as $key => $value)
+                     
                       <option value="{{ is_numeric($key) ? $value : $key }}">{{ $value }}</option>
+                    @endforeach
+                  </select>
+                @elseif($field[2] === 'select2')
+                  <select class="form-control" id="{{ $field[0] }}" name="{{ $field[0] }}">
+                    <option value="">Select</option>
+                    @foreach($field[3] as $key => $value)
+                      <option value="{{ $key }}">{{ $value }}</option> 
                     @endforeach
                   </select>
                 @else
@@ -174,7 +182,7 @@
         order: [[1, 'desc']],
         pageLength: 10,
         columns: [
-          { data: 'id', render: function(data, type, row, meta) { return meta.row + 1; }, className: 'text-center' },
+          { data: 'id', render: function(data, type, row, meta) {  return meta.settings._iDisplayStart + meta.row + 1; }, className: 'text-center' },
           { data: 'TripClaimID', render: function(data) { return 'TMG' + data.substring(8); } },
           { data: 'created_at' },
           { data: 'triptype' },

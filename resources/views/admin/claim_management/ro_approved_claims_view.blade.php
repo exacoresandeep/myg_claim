@@ -242,8 +242,8 @@
                               @endforeach
                       
                               @if(!empty($claimdetails['is_duplication']) && $claimdetails['is_duplication'] === true)
-                                  <a href="{{ url('ro_approved_claims_view/') }}">View Duplicate Claim</a>
-                              @endif
+                                  {{-- <a href="{{ url('ro_approved_claims_view/') }}">View Duplicate Claim</a> --}}
+                              @endif 
                           @else
                               <span>No Person Details Available</span>
                           @endif

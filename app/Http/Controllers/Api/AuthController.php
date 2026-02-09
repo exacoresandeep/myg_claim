@@ -1503,7 +1503,7 @@ class AuthController extends Controller
         //.....................................
         $user = User::where('id', auth()->id())->first();
 
-        if($user->id!==1){
+        if($user){
             return response()->json([
                 'message' => "Server is under maintanence. Please try again after 4 PM.",
                 'statusCode' => 422,

@@ -152,7 +152,7 @@
                   data: 'id', 
                   name: 'id', 
                   render: function(data, type, row, meta) {
-                      return meta.row + 1; // meta.row is zero-based index
+                       return meta.settings._iDisplayStart + meta.row + 1;
                   }
               },
               { data: 'created_at', name: 'created_at' },
